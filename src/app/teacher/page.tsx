@@ -8,7 +8,7 @@ export default function TeacherDashboard() {
       {/* Dashboard */}
       <section className="bg-blue-100 min-h-screen p-8">
         <h2 className="text-3xl font-bold">
-          Welcome Back, Maryam 👋
+          Welcome 👋
         </h2>
 
         {/* Dashboard Cards */}
