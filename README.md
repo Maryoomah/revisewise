@@ -119,44 +119,6 @@ Each assignment includes:
 * Instructions
 * Due date
 
-# Project Structure
-app/
-│
-├── login/
-├── register/
-├── forgot-password/
-├── update-password/
-├── logout/
-│
-├── teacher/
-│   ├── layout.tsx
-│   ├── page.tsx
-│   └── classes/
-│       ├── page.tsx
-│       ├── create/
-│       └── [id]/
-│           ├── page.tsx
-│           ├── edit/
-│           └── assignments/
-│               ├── create/
-│               └── page.tsx
-│
-├── student/
-│   ├── layout.tsx
-│   └── page.tsx
-│
-└── auth/
-    ├── confirm/
-    └── callback/
-
-components/
-│
-├── NavLink
-└── ...
-
-lib/
-└── supabase/
-
 
 # Current Learning Objectives
 
@@ -195,27 +157,28 @@ This project is being developed to strengthen practical skills in:
 
 ### Student Management
 
-* Invite students
-* Join classes
+* Invite students ✅
+* Join classes ✅
 * Manage enrolled students
 
 ## Phase 4
 
 ### Assignment Management
-### Assignment Management
 
 * Create assignments ✅
 * View assignments within a class ✅
 * Edit assignments
+* View individual assignment ✅
 * Delete assignments
 
 ## Phase 5
 
 ### Student Dashboard
 
-* View enrolled classes
-* View assignments
-* Submit essays
+* View enrolled classes ✅
+* View assignments ✅
+* Submit essays ✅
+* Update existing submissions ✅
 * Track progress
 
 ## Phase 6
@@ -251,7 +214,7 @@ This project is being developed to strengthen practical skills in:
 
 # Status
 
-**Current milestone:** Teacher Module completed.
+**Current milestone:** Students can enrol in classes, view the classes and submit assignments.
 
 Completed:
 
@@ -261,8 +224,9 @@ Completed:
 * Class Management (CRUD)
 * Assignment Creation
 * Assignment Listing
+* Assignment Submission
 
-**Next milestone:** Student Management (class enrolment and student dashboard).
+**Next milestone:** Teacher Module (assignment response viewing and review).
 
 ## Author
 
