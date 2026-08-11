@@ -1,8 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import NavLink from "@/components/navlink";
-import deleteClass from "./delete/action";
-import CopyButton from "@/components/copybutton";
-export default async function ClassPage({
+import Link from "next/link";
+export default async function StudentClassPage({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -31,7 +30,7 @@ export default async function ClassPage({
   return (
     <main className="min-h-screen bg-blue-100 p-8">
       <section className="max-w-4xl mx-auto">
-        <NavLink href="/teacher/classes">← Back to Classes</NavLink>
+        <NavLink href="/student/classes">← Back to Classes</NavLink>
 
         <h1 className="text-4xl font-bold mt-6">{classItem.title}</h1>
 
@@ -41,29 +40,7 @@ export default async function ClassPage({
           Level: <span className="text-blue-900">{classItem.level}</span>
         </p>
 
-        <p className="font-semibold">
-  Join Code:
-</p>
 
-<p className="mb-4">
-  {classItem.join_code}
-</p>
-<div className="mb-4"><CopyButton text={classItem.join_code} />
-</div>
-        <NavLink href={`/teacher/classes/${id}/edit`}>
-  ✏️ Edit Class
-</NavLink>
-<form action={deleteClass}>
-  <input
-    type="hidden"
-    name="class_id"
-    value={classItem.id}
-  />
-
-  <button             className="inline-flex items-center gap-2 rounded-lg bg-blue-800 mt-4 px-6 py-3 text-white font-semibold hover:bg-blue-800 transition cursor-pointer"
- type="submit">
-🗑️ Delete Class  </button>
-</form>
       </section>
 
  <section className="mt-10">
@@ -72,27 +49,25 @@ export default async function ClassPage({
       Assignments
     </h2>
 
-    <NavLink href={`/teacher/classes/${id}/assignments/create`}>
-      + Create Assignment
-    </NavLink>
+
 
   </div>
 
   {assignments.length === 0 ? (
     <section className="rounded-xl bg-white p-10 text-center shadow">
-      <h3 className="text-xl font-bold text-gray-800 mb-3">
-        No assignments yet
-      </h3>
+      <p className="text-xl font-bold text-gray-800 mb-3">
+No assignments have been posted yet.
 
-      <p className="text-gray-600">
-        Create your first assignment for this class.
-      </p>
+Check back later.      </p>
+
+     
     </section>
-  ) : (
-    <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+  ) : (  <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
       {assignments.map((assignment) => (
+        <Link key={assignment.id} href={`/student/classes/${id}/assignments/${assignment.id}`}>
+
         <article
-          key={assignment.id}
           className="rounded-xl bg-white p-6 shadow hover:shadow-lg transition"
         >
           <h3 className="text-xl font-bold text-blue-900">
@@ -111,9 +86,10 @@ export default async function ClassPage({
               </span>
             </p>
           </div>
-        </article>
+        </article> </Link>
       ))}
     </section>
+    
   )}
 </section>
     </main>

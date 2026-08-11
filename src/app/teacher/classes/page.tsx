@@ -73,6 +73,7 @@ export default async function ClassesPage (){
                 <NavLink href={`/teacher/classes/${classItem.id}`}>
                   View →
                 </NavLink>
+                
               </div>
             </article>
           ))}
