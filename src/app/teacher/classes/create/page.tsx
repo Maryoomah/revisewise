@@ -1,79 +1,104 @@
 import createClass from "./action";
+import Link from "next/link";
 export default function CreateClass() {
   return (
-    <main className="min-h-screen bg-blue-100 flex items-center justify-center p-8">
-      <section className="w-full max-w-2xl rounded-2xl bg-white p-8 shadow-lg">
-        <h1 className="text-3xl md:text-4xl font-extrabold mb-2">
-          Create <span className="text-blue-900">Class</span>
-        </h1>
+    <main className="min-h-screen bg-gray-50 px-6 py-10">
+      <div className="mx-auto max-w-2xl">
 
-        <p className="text-gray-600 mb-8">
-          Set up a new class before inviting students and creating assignments.
-        </p>
+        {/* Header */}
+        <div className="mb-8">
+    <Link
+    href="/teacher"
+    className="text-sm font-medium text-blue-700 hover:text-blue-900 "
+  >
+    ← Back to Dashboard
+  </Link>
 
-        <form action={createClass} className="space-y-6">
-          <div>
-            <label
-              htmlFor="title"
-              className="block mb-2 font-medium text-gray-700"
-            >
-              Class Title
-            </label>
+          <h1 className="mt-1 text-3xl font-bold text-gray-900">
+            Create a Class
+          </h1>
 
-            <input
-              type="text"
-              name="title"
-              id="title"
-              required
-              placeholder="e.g. English Writing 101"
-              className="w-full rounded-lg border border-blue-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-900"
-            />
-          </div>
+          <p className="mt-2 text-gray-600">
+            Set up your class before inviting students and creating
+            assignments.
+          </p>
+        </div>
 
-          <div>
-            <label
-              htmlFor="description"
-              className="block mb-2 font-medium text-gray-700"
-            >
-              Description
-            </label>
+        {/* Form */}
+        <section className="rounded-2xl bg-white p-8 shadow-sm">
+          <form action={createClass} className="space-y-6">
 
-            <textarea
-              name="description"
-              id="description"
-              rows={4}
-              placeholder="Briefly describe this class..."
-              className="w-full rounded-lg border border-blue-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-900 resize-none"
-            />
-          </div>
+            <div>
+              <label
+                htmlFor="title"
+                className="mb-2 block text-sm font-semibold text-gray-700"
+              >
+                Class Title
+              </label>
 
-          <div>
-            <label
-              htmlFor="level"
-              className="block mb-2 font-medium text-gray-700"
-            >
-              Class Level
-            </label>
+              <input
+                type="text"
+                name="title"
+                id="title"
+                required
+                placeholder="e.g. English Writing 101"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+              />
+            </div>
 
-            <input
-              type="text"
-              name="level"
-              id="level"
-              required
-              placeholder="e.g. Beginner, CEFR B1, Year 7, IELTS Prep"
-              className="w-full rounded-lg border border-blue-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-900"
-            />
-          </div>
+            <div>
+              <label
+                htmlFor="description"
+                className="mb-2 block text-sm font-semibold text-gray-700"
+              >
+                Description
+              </label>
 
-          <button
-            type="submit"
-            className="inline-flex items-center gap-2 rounded-lg bg-blue-900 px-6 py-3 text-white font-semibold hover:bg-blue-800 transition cursor-pointer"
-          >
-            <span className="text-lg font-bold">+</span>
-            <span>Create Class</span>
-          </button>
-        </form>
-      </section>
+              <textarea
+                name="description"
+                id="description"
+                rows={5}
+                placeholder="Briefly describe this class..."
+                className="w-full resize-none rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="level"
+                className="mb-2 block text-sm font-semibold text-gray-700"
+              >
+                Class Level
+              </label>
+
+              <input
+                type="text"
+                name="level"
+                id="level"
+                required
+                placeholder="e.g. Beginner, CEFR B1, Year 7, IELTS Prep"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+              />
+
+              <p className="mt-2 text-xs text-gray-500">
+                You can use a school year, proficiency level, or course
+                category.
+              </p>
+            </div>
+
+            <div className="border-t pt-6">
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-800 px-6 py-3 font-semibold text-white transition hover:bg-blue-900"
+              >
+                <span className="text-lg">+</span>
+                Create Class
+              </button>
+            </div>
+
+          </form>
+        </section>
+      </div>
     </main>
   );
 }

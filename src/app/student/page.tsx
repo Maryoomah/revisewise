@@ -1,7 +1,10 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import joinClass from "./action/joinclass";
+import { getAssignmentStatus } from "@/lib/assignmentStatus";
 import Link from "next/link";
+
+
 export default async function StudentDashboard() {
   const supabase = await createClient();
 
@@ -12,6 +15,15 @@ export default async function StudentDashboard() {
 
   if (authError || !user) {
     redirect("/login");
+  }
+
+  const { data: profile, error: profileError } = await supabase
+    .from("profiles")
+    .select("full_name")
+    .eq("id", user.id)
+    .single();
+    if (profileError) {
+    throw profileError;
   }
 
   const { data: enrolledClasses, error } = await supabase
@@ -31,13 +43,52 @@ export default async function StudentDashboard() {
     throw error;
   }
 
-  return (
-    <main className="min-h-screen bg-blue-100 flex items-center justify-center p-8">
-      <section className="w-full max-w-2xl rounded-2xl bg-white p-8 shadow-lg">
-        <h1 className="text-3xl md:text-4xl font-extrabold">
-          Student <span className="text-blue-900">Dashboard</span>
-        </h1>
+const enrolledClassesIds = enrolledClasses.map(
+  (classItem) => classItem.classes.id
+);
+  let assignments: any[] = [];
 
+  if(enrolledClassesIds.length > 0) {
+     const { data, error: assignmentsError } = await supabase
+      .from("assignments")
+      .select("id, title, due_date, class_id")
+      .in("class_id", enrolledClassesIds);
+
+    if (assignmentsError) {
+      throw assignmentsError;
+    }
+    assignments = data ?? [];
+
+  }
+
+   const assignmentCount = assignments.length;
+
+  const assignmentIds = assignments.map((assignment) => assignment.id);
+
+    let submissions: any[] = [];
+
+  if (assignmentIds.length > 0) {
+    const { data, error: submissionsError } = await supabase
+      .from("submissions")
+      .select("id, assignment_id, status, feedback")
+      .in("assignment_id", assignmentIds)
+      .eq("student_id", user.id);
+
+    if (submissionsError) {
+      throw submissionsError;
+    }
+
+    submissions = data ?? [];
+  }
+const submissionsAwaitingFeedback = submissions.filter(
+  (submission) =>
+    submission.status === "submitted" && !submission.feedback
+);
+
+const awaitingFeedbackCount = submissionsAwaitingFeedback.length;
+  return (
+  <main className="min-h-screen bg-gray-50 p-6 md:p-8">
+  <section className="mx-auto w-full max-w-6xl">
         {enrolledClasses.length === 0 ? (
           <>
             <p className="mt-4 text-lg font-medium">
@@ -54,36 +105,152 @@ export default async function StudentDashboard() {
           </>
         ) :  (
           <>
-          
-            <h2 className="mt-6 mb-4 text-2xl font-bold">
-              My Classes
-            </h2>
-<div className="space-y-4 mb-8">
-              {enrolledClasses.map((enrolment) => (
-                   <Link
-      key={enrolment.class_id}
-      href={`/student/classes/${enrolment.classes.id}`}
-      className="block cursor-pointer"
-    >
-               <div
-                  className="rounded-xl border border-gray-200 bg-gray-50 p-5"
-                >
-                  <h3 className="text-xl font-semibold">
-                    {enrolment.classes.title}
-                  </h3>
+             {/* Welcome */}
+       <section className="mb-8">
 
-                  <p className="text-blue-900 font-medium">
-                    {enrolment.classes.level}
-                  </p>
+  <h1 className="mt-1 text-3xl font-bold text-gray-900 md:text-4xl">
+    Welcome, {profile.full_name.split(" ")[0]} 👋
+  </h1>
 
-                  <p className="mt-2 text-gray-600">
-                    {enrolment.classes.description}
-                  </p>
-             
-                </div> </Link>
-              ))}
+</section>
+       <div className="mb-10 grid gap-4 sm:grid-cols-3">
+  <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
+    <p className="text-sm font-medium text-gray-500">
+      My Classes
+    </p>
+
+    <p className="mt-2 text-3xl font-bold text-gray-900">
+      {enrolledClasses.length}
+    </p>
+  </div>
+
+  <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
+    <p className="text-sm font-medium text-gray-500">
+      Assignments
+    </p>
+
+    <p className="mt-2 text-3xl font-bold text-gray-900">
+      {assignmentCount}
+    </p>
+  </div>
+
+  <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
+    <p className="text-sm font-medium text-gray-500">
+      Awaiting Feedback
+    </p>
+
+    <p className="mt-2 text-3xl font-bold text-gray-900">
+      {awaitingFeedbackCount}
+    </p>
+  </div>
+</div>     
+<section className="mb-10">
+  <div className="mb-4 flex items-center justify-between">
+    <h2 className="text-2xl font-bold text-gray-900">
+      My Classes
+    </h2>
+
+    <span className="text-sm text-gray-500">
+      {enrolledClasses.length}{" "}
+      {enrolledClasses.length === 1 ? "class" : "classes"}
+    </span>
+  </div>
+
+  <div className="grid gap-5 md:grid-cols-2">
+    {enrolledClasses.map((enrolment) => (
+      <Link
+        key={enrolment.class_id}
+        href={`/student/classes/${enrolment.classes.id}`}
+        className="group"
+      >
+        <div className="h-full rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="mb-2 text-sm font-medium text-blue-900">
+                {enrolment.classes.level}
+              </p>
+
+              <h3 className="text-xl font-bold text-gray-900">
+                {enrolment.classes.title}
+              </h3>
             </div>
-           
+
+            <span className="text-xl text-gray-400 transition group-hover:translate-x-1 group-hover:text-blue-900">
+              →
+            </span>
+          </div>
+
+          <p className="mt-3 line-clamp-2 text-sm leading-6 text-gray-600">
+            {enrolment.classes.description}
+          </p>
+
+          <p className="mt-5 text-sm font-semibold text-blue-900">
+            View class →
+          </p>
+        </div>
+      </Link>
+    ))}
+  </div>
+</section>
+           <section className="mb-10">
+  <div className="mb-4 flex items-center justify-between">
+    <h2 className="text-2xl font-bold text-gray-900">
+      Recent Assignments
+    </h2>
+
+    <span className="text-sm text-gray-500">
+      {assignmentCount}{" "}
+      {assignmentCount === 1 ? "assignment" : "assignments"}
+    </span>
+  </div>
+
+  {assignments.length === 0 ? (
+    <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-8 text-center">
+      <p className="font-medium text-gray-700">
+        No assignments yet.
+      </p>
+
+      <p className="mt-1 text-sm text-gray-500">
+        Your teacher's assignments will appear here.
+      </p>
+    </div>
+  ) : (
+    <div className="space-y-3">
+     {assignments.map((assignment) => {
+  const status = getAssignmentStatus(
+    assignment.id,
+    submissions
+  );
+
+  return (
+    <div
+      key={assignment.id}
+      className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
+    >
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h3 className="font-semibold text-gray-900">
+            {assignment.title}
+          </h3>
+
+          <p className="mt-1 text-sm text-gray-500">
+            Due{" "}
+            {new Date(assignment.due_date).toLocaleDateString()}
+          </p>
+        </div>
+
+        <span
+          className={`w-fit rounded-full px-3 py-1 text-sm font-medium ${status.className}`}
+        >
+          {status.label}
+        </span>
+      </div>
+    </div>
+  );
+})}
+    </div>
+  )}
+</section>
 
             <hr className="my-8" />
 

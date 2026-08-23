@@ -1,89 +1,121 @@
 import createAssignment from "./action";
+import NavLink from "@/components/navlink";
 
 export default async function CreateAssignmentPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  // Get the class ID from the URL
   const { id } = await params;
 
   return (
-    <main className="min-h-screen bg-blue-100 p-8">
-      <section className="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow">
+    <main className="min-h-screen bg-gray-50 px-6 py-10">
+      <div className="mx-auto max-w-3xl">
 
-        <h1 className="text-3xl font-bold mb-6">
-          Create Assignment
-        </h1>
+        <NavLink
+          href={`/teacher/classes/${id}`}
+        >
+          ← Back to class
+        </NavLink>
 
-        <form action={createAssignment} className="space-y-6">
+        <section className="rounded-2xl bg-white p-8 shadow-sm">
+          <div className="mb-8">
+            <p className="text-sm font-medium text-blue-700">
+              New Assignment
+            </p>
 
-          {/* Hidden class ID */}
-          <input
-            type="hidden"
-            name="class_id"
-            value={id}
-          />
+            <h1 className="mt-1 text-3xl font-bold text-gray-900">
+              Create Assignment
+            </h1>
 
-          {/* Assignment Title */}
-          <div>
-            <label htmlFor="title" className="block mb-2 font-medium">
-              Assignment Title
-            </label>
+            <p className="mt-2 text-gray-600">
+              Create an assignment for the students in this class.
+            </p>
+          </div>
+
+          <form action={createAssignment} className="space-y-6">
 
             <input
-              id="title"
-              name="title"
-              type="text"
-              required
-              className="w-full border rounded-lg p-3"
+              type="hidden"
+              name="class_id"
+              value={id}
             />
-          </div>
 
-          {/* Instructions */}
-          <div>
-            <label
-              htmlFor="instructions"
-              className="block mb-2 font-medium"
-            >
-              Instructions
-            </label>
+            <div>
+              <label
+                htmlFor="title"
+                className="mb-2 block font-medium text-gray-700"
+              >
+                Assignment Title
+              </label>
 
-            <textarea
-              id="instructions"
-              name="instructions"
-              rows={6}
-              required
-              className="w-full border rounded-lg p-3"
-            />
-          </div>
+              <input
+                id="title"
+                name="title"
+                type="text"
+                required
+                placeholder="e.g. Argumentative Essay"
+                className="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-900"
+              />
+            </div>
 
-          {/* Due Date */}
-          <div>
-            <label
-              htmlFor="due_date"
-              className="block mb-2 font-medium"
-            >
-              Due Date
-            </label>
+            <div>
+              <label
+                htmlFor="instructions"
+                className="mb-2 block font-medium text-gray-700"
+              >
+                Instructions
+              </label>
 
-            <input
-              id="due_date"
-              name="due_date"
-              type="date"
-              className="w-full border rounded-lg p-3"
-            />
-          </div>
+              <textarea
+                id="instructions"
+                name="instructions"
+                rows={7}
+                required
+                placeholder="Explain what students should do for this assignment..."
+                className="w-full resize-none rounded-lg border border-gray-300 p-3 focus:border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-900"
+              />
+            </div>
 
-          <button
-            type="submit"
-            className="bg-blue-800 text-white px-6 py-3 rounded-lg hover:bg-blue-900"
-          >
-            Create Assignment
-          </button>
+            <div>
+              <label
+                htmlFor="due_date"
+                className="mb-2 block font-medium text-gray-700"
+              >
+                Due Date
+              </label>
 
-        </form>
-      </section>
+              <input
+                id="due_date"
+                name="due_date"
+                type="date"
+                required
+                className="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-900"
+              />
+
+              <p className="mt-2 text-sm text-gray-500">
+                Choose when students should submit this assignment.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 pt-2">
+              <button
+                type="submit"
+                className="rounded-lg bg-blue-800 px-6 py-3 font-semibold text-white transition hover:bg-blue-900"
+              >
+                Create Assignment
+              </button>
+
+              <NavLink
+                href={`/teacher/classes/${id}`}
+              >
+                Cancel
+              </NavLink>
+            </div>
+
+          </form>
+        </section>
+      </div>
     </main>
   );
 }

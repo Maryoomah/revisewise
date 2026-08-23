@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import NavLink from "@/components/navlink";
 import Link from "next/link";
+import { getAssignmentStatus } from "@/lib/assignmentStatus";
+import { redirect } from "next/navigation";
 export default async function StudentClassPage({
   params,
 }: {
@@ -9,7 +11,14 @@ export default async function StudentClassPage({
   const { id } = await params;
 
   const supabase = await createClient();
+const {
+  data: { user },
+  error: authError,
+} = await supabase.auth.getUser();
 
+if (authError || !user) {
+  redirect("/login");
+}
   const { data: classItem, error: classError } = await supabase
     .from("classes")
     .select("*")
@@ -27,71 +36,135 @@ export default async function StudentClassPage({
   if (assignmentsError) {
     throw assignmentsError;
   }
-  return (
-    <main className="min-h-screen bg-blue-100 p-8">
-      <section className="max-w-4xl mx-auto">
-        <NavLink href="/student/classes">← Back to Classes</NavLink>
 
-        <h1 className="text-4xl font-bold mt-6">{classItem.title}</h1>
+  const assignmentIds = assignments.map((assignment) => assignment.id);
 
-        <p className="mt-4 text-gray-700">{classItem.description}</p>
+let submissions: any[] = [];
 
-        <p className="mt-4 mb-4 font-semibold">
-          Level: <span className="text-blue-900">{classItem.level}</span>
+if (assignmentIds.length > 0) {
+  const { data, error: submissionsError } = await supabase
+    .from("submissions")
+    .select("id, assignment_id, status, feedback")
+    .in("assignment_id", assignmentIds)
+    .eq("student_id", user.id);
+
+  if (submissionsError) {
+    throw submissionsError;
+  }
+
+  submissions = data ?? [];
+}
+ return (
+  <main className="min-h-screen bg-gray-50 p-6 md:p-8">
+    <section className="mx-auto w-full max-w-6xl">
+
+      <NavLink href="/student">
+        ← Back to Dashboard
+      </NavLink>
+
+      {/* Class Header */}
+      <section className="mt-6 mb-10">
+        <p className="text-sm font-medium text-blue-900">
+          {classItem.level}
         </p>
 
+        <h1 className="mt-1 text-3xl font-bold text-gray-900 md:text-4xl">
+          {classItem.title}
+        </h1>
 
+        <p className="mt-3 max-w-3xl text-gray-600 leading-7">
+          {classItem.description}
+        </p>
       </section>
 
- <section className="mt-10">
-  <div className="flex items-center justify-between mb-6">
-    <h2 className="text-2xl font-bold text-blue-900">
-      Assignments
-    </h2>
+      {/* Assignments */}
+      <section>
+        <div className="mb-5 flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">
+              Assignments
+            </h2>
 
+            <p className="mt-1 text-sm text-gray-500">
+              {assignments.length}{" "}
+              {assignments.length === 1
+                ? "assignment"
+                : "assignments"}
+            </p>
+          </div>
+        </div>
 
+        {assignments.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-10 text-center">
+            <p className="font-semibold text-gray-800">
+              No assignments yet
+            </p>
 
-  </div>
+            <p className="mt-2 text-sm text-gray-500">
+              Your teacher hasn't posted any assignments for this class yet.
+            </p>
+          </div>
+        ) : (
+          <div className="grid gap-5 md:grid-cols-2">
+           {assignments.map((assignment) => {
+  const status = getAssignmentStatus(
+    assignment.id,
+    submissions
+  );
 
-  {assignments.length === 0 ? (
-    <section className="rounded-xl bg-white p-10 text-center shadow">
-      <p className="text-xl font-bold text-gray-800 mb-3">
-No assignments have been posted yet.
+  return (
+    <Link
+      key={assignment.id}
+      href={`/student/classes/${id}/assignments/${assignment.id}`}
+      className="group"
+    >
+      <article className="h-full rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
 
-Check back later.      </p>
-
-     
-    </section>
-  ) : (  <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-      {assignments.map((assignment) => (
-        <Link key={assignment.id} href={`/student/classes/${id}/assignments/${assignment.id}`}>
-
-        <article
-          className="rounded-xl bg-white p-6 shadow hover:shadow-lg transition"
-        >
-          <h3 className="text-xl font-bold text-blue-900">
+        <div className="flex items-start justify-between gap-4">
+          <h3 className="text-xl font-bold text-gray-900">
             {assignment.title}
           </h3>
 
-          <p className="mt-3 text-gray-600">
-            {assignment.instructions}
-          </p>
+          <span className="text-xl text-gray-400 transition group-hover:translate-x-1 group-hover:text-blue-900">
+            →
+          </span>
+        </div>
 
-          <div className="mt-5 border-t pt-4">
-            <p className="font-semibold">
-              Due:
-              <span className="ml-2 text-red-600">
-                {assignment.due_date}
-              </span>
-            </p>
-          </div>
-        </article> </Link>
-      ))}
-    </section>
-    
-  )}
-</section>
-    </main>
+        <p className="mt-3 line-clamp-3 text-sm leading-6 text-gray-600">
+          {assignment.instructions}
+        </p>
+
+        {/* Submission Status */}
+        <div className="mt-5">
+          <span
+            className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${status.className}`}
+          >
+            {status.label}
+          </span>
+        </div>
+
+        <div className="mt-6 border-t border-gray-100 pt-4">
+          <p className="text-sm">
+            <span className="font-medium text-gray-500">
+              Due
+            </span>
+
+            <span className="ml-2 font-semibold text-gray-900">
+              {new Date(
+                assignment.due_date
+              ).toLocaleDateString()}
+            </span>
+          </p>
+        </div>
+
+      </article>
+    </Link>
   );
+})}
+          </div>
+        )}
+      </section>
+    </section>
+  </main>
+);
 }

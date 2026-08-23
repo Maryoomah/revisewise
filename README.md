@@ -1,21 +1,23 @@
 # WriteWise
 
-WriteWise is a modern web application for managing  writing classes, assignments, submissions, and AI-assisted  feedback. The project is being built with **Next.js**, **TypeScript**, **Tailwind CSS**, and **Supabase**, with a focus on creating a scalable platform for English language teachers and learners.
+WriteWise is a modern web application for managing writing classes, assignments, student submissions, revisions, and teacher feedback.
 
-The project also serves as the practical component of a broader research interest in AI-assisted formative feedback for second language writing.
+The project is being built with **Next.js**, **TypeScript**, **Tailwind CSS**, and **Supabase**, with a focus on creating a scalable platform for English language teachers and learners.
+
+The project also serves as the practical component of a broader research interest in **AI-assisted formative feedback for second language writing**.
 
 ---
 
-## Tech Stack
+# Tech Stack
 
-
-* Next.js (App Router)
-* React
-* TypeScript
-* Tailwind CSS
-* Supabase Authentication
-* Supabase Database
-
+- Next.js (App Router)
+- React
+- TypeScript
+- Tailwind CSS
+- Supabase Authentication
+- Supabase Database
+- Supabase Row Level Security (RLS)
+- Server Actions
 
 ---
 
@@ -25,208 +27,260 @@ The project also serves as the practical component of a broader research interes
 
 ### User Registration
 
-* Email and password registration
-* Full name collection
-* Teacher and Student role selection
-* Email verification
+- Email and password registration
+- Full name collection
+- Teacher and Student role selection
+- Email verification
 
 ### Login
 
-* Email/password authentication
-* Automatic role detection
-* Redirects users to the correct dashboard after login
+- Email/password authentication
+- Automatic role detection
+- Redirects users to the correct dashboard after login
 
 ### Password Recovery
 
-* Forgot Password
-* Password reset through email
-* Password update page
+- Forgot Password
+- Password reset through email
+- Password update page
 
 ### Logout
 
-* Secure logout using Supabase Authentication
-* Session destroyed before redirecting to login
+- Secure logout using Supabase Authentication
+- Session destroyed before redirecting to login
 
 ---
 
-## Authorization
+# Authorization
 
 Role-based route protection has been implemented.
 
 ### Teacher
 
-Protected routes:
+Protected routes include:
 
-* `/teacher`
-* `/teacher/profile`
-* Future teacher pages
+- `/teacher`
+- `/teacher/profile`
+- `/teacher/classes`
+- `/teacher/assignments`
+- `/teacher/submissions`
 
-Only authenticated teachers can access these routes.
+Only authenticated teachers can access teacher functionality.
 
 ### Student
 
-Protected routes:
+Protected routes include:
 
-* `/student`
-* Future student pages
+- `/student`
+- `/student/classes`
+- `/student/classes/[id]`
+- `/student/classes/[id]/assignments/[assignmentId]`
 
-Only authenticated students can access these routes.
+Only authenticated students can access student functionality.
 
 Unauthenticated users are redirected to the login page.
 
 ---
 
-## User Profile
+# User Profile
 
 A `profiles` table stores application-specific user information.
 
 Current fields include:
 
-* id
-* full_name
-* role
+- `id`
+- `full_name`
+- `role`
 
-Authentication data is managed by Supabase Auth, while application data is stored in the database.
+Authentication data is managed by Supabase Auth, while application-specific data is stored in the database.
 
 ---
-## Teacher Module
 
-### Teacher Dashboard
+# Teacher Module
 
-* Protected teacher dashboard
-* Role-based access
+## Teacher Dashboard
 
-### Class Management (CRUD)
+The teacher dashboard provides an overview of:
+
+- Active classes
+- Active assignments
+- New student submissions
+- Assignments approaching their deadlines
+- Submissions awaiting review
+
+Quick actions are also available for:
+
+- Creating a new class
+- Accessing classes
+- Reviewing submissions
+- Accessing assignments
+
+---
+
+## Class Management
 
 Teachers can:
 
-* Create classes
-* View all their classes
-* View individual class details
-* Edit existing classes
-* Delete classes
+- Create classes
+- View all their classes
+- View individual class details
+- Edit existing classes
+- Delete classes
 
-### Assignment Management
+Each class includes:
+
+- Title
+- Level
+- Description
+- Class code
+- Teacher
+
+---
+
+## Student Management
+
+Students can join classes using a class code.
+
+The database uses an `enrolments` table to establish the relationship between:
+
+- Students
+- Classes
+
+A unique constraint prevents a student from enrolling in the same class more than once.
+
+---
+
+## Assignment Management
 
 Teachers can:
 
-* Create assignments within a class
-* View assignments belonging to a class
+- Create assignments within a class
+- View assignments belonging to a class
+- View individual assignments
+- Set assignment instructions
+- Set due dates
 
-Each assignment includes:
-
-* Title
-* Instructions
-* Due date
-
-
-# Current Learning Objectives
-
-This project is being developed to strengthen practical skills in:
-
-* Next.js App Router
-* TypeScript
-* React
-* Authentication
-* Authorization
-* CRUD Operations
-* Database Design
-* Server Actions
-* Full-stack application architecture
+Each assignment belongs to a specific class.
 
 ---
 
-# Planned Features
+# Student Module
 
-## Phase 1
+## Student Dashboard
 
-* Authentication ✅
-* Authorization ✅
+The student dashboard provides an overview of:
 
-## Phase 2
+- Enrolled classes
+- Total assignments
+- Assignments awaiting feedback
+- Recent assignments
 
-### Class Management
+Students can also:
 
-* Create Class ✅
-* View Classes ✅
-* View Individual Class ✅
-* Edit Class ✅
-* Delete Class ✅
-
-## Phase 3
-
-### Student Management
-
-* Invite students ✅
-* Join classes ✅
-* Manage enrolled students
-
-## Phase 4
-
-### Assignment Management
-
-* Create assignments ✅
-* View assignments within a class ✅
-* Edit assignments
-* View individual assignment ✅
-* Delete assignments
-
-## Phase 5
-
-### Student Dashboard
-
-* View enrolled classes ✅
-* View assignments ✅
-* Submit essays ✅
-* Update existing submissions ✅
-* Track progress
-
-## Phase 6
-
-### Teacher Dashboard
-
-* Review submissions
-* View student work
-* Provide feedback
-
-## Phase 7
-
-### AI-Assisted Feedback
-
-* Automated formative feedback
-* Grammar suggestions
-* Vocabulary suggestions
-* Coherence feedback
-* Revision support
-
-## Phase 8
-
-### Analytics
-
-* Student progress
-* Revision history
-* Assignment statistics
-* Teacher insights
+- View their enrolled classes
+- Join another class using a class code
+- Access individual class pages
+- Access individual assignments
 
 ---
 
+## Class Pages
 
+Students can view:
 
-# Status
+- Class title
+- Class level
+- Class description
+- Assignments belonging to the class
 
-**Current milestone:** Students can enrol in classes, view the classes and submit assignments.
+Each assignment displays:
 
-Completed:
+- Assignment title
+- Instructions
+- Due date
+- Submission status
 
-* Authentication
-* Role-based authorization
-* Teacher Dashboard
-* Class Management (CRUD)
-* Assignment Creation
-* Assignment Listing
-* Assignment Submission
+Students can click an assignment to access its submission page.
 
-**Next milestone:** Teacher Module (assignment response viewing and review).
+---
+
+# Assignment Submissions
+
+Students can:
+
+- Submit an essay
+- View their existing submission
+- Update an existing submission
+- Revise their work after receiving feedback
+
+Each student can have one active submission for a particular assignment.
+
+Updating a submission overwrites the current response rather than creating a second active submission.
+
+---
+
+# Submission Status
+
+Submissions currently use statuses including:
+
+- `submitted`
+- `reviewed`
+
+### Submitted
+
+The student's work has been submitted and is awaiting teacher review.
+
+### Reviewed
+
+The teacher has provided feedback and/or a score.
+
+When a student revises and resubmits their work:
+
+- The current response is updated
+- The submission status changes back to `submitted`
+- Previous feedback is cleared from the active submission
+- The teacher can review the new version
+
+---
+
+# Teacher Submission Review
+
+Teachers can access a dedicated submissions area where they can:
+
+- View student submissions
+- See which submissions are awaiting review
+- View reviewed submissions
+- Read student responses
+- Provide feedback
+- Assign scores
+
+The teacher dashboard also displays the number of submissions currently awaiting review.
+
+---
+
+# Submission Review History
+
+To preserve feedback and revision history, WriteWise uses a separate `submission_reviews` table.
+
+This allows the active `submissions` record to represent the student's current version while previous teacher reviews are preserved separately.
+
+For example:
+
+```text
+Student submits Essay 1
+        ↓
+Teacher reviews Essay 1
+        ↓
+Review 1 saved in submission_reviews
+        ↓
+Student revises Essay
+        ↓
+Current response is updated
+        ↓
+Teacher reviews Essay 2
+        ↓
+Review 2 saved in submission_reviews
+
 
 ## Author
 

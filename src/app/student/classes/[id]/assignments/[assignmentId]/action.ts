@@ -54,14 +54,17 @@ if (!enrolment) {
     throw insertError;
   }
 } else {
-  const { error: updateError } = await supabase
-    .from("submissions")
-    .update({
-      response: response,
-      updated_at: new Date().toISOString(),
-    })
-    .eq("assignment_id", assignmentId)
-    .eq("student_id", user.id);
+ const { error: updateError } = await supabase
+  .from("submissions")
+  .update({
+    response,
+    status: "submitted",
+    feedback: null,
+    score: null,
+    updated_at: new Date().toISOString(),
+  })
+  .eq("assignment_id", assignmentId)
+  .eq("student_id", user.id);
 
   if (updateError) {
     throw updateError;
