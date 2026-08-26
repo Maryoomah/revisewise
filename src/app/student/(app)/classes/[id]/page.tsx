@@ -58,9 +58,7 @@ if (assignmentIds.length > 0) {
   <main className="min-h-screen bg-gray-50 p-6 md:p-8">
     <section className="mx-auto w-full max-w-6xl">
 
-      <NavLink href="/student">
-        ← Back to Dashboard
-      </NavLink>
+  
 
       {/* Class Header */}
       <section className="mt-6 mb-10">

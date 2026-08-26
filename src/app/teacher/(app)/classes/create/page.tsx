@@ -7,12 +7,7 @@ export default function CreateClass() {
 
         {/* Header */}
         <div className="mb-8">
-    <Link
-    href="/teacher"
-    className="text-sm font-medium text-blue-700 hover:text-blue-900 "
-  >
-    ← Back to Dashboard
-  </Link>
+
 
           <h1 className="mt-1 text-3xl font-bold text-gray-900">
             Create a Class

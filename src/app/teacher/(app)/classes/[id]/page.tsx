@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import deleteClass from "./delete/action";
+import DeleteClassButton from "@/components/deleteclass";
 import CopyButton from "@/components/copybutton";
 export default async function ClassPage({
   params,
@@ -87,20 +87,9 @@ export default async function ClassPage({
     </div>
 
     {/* Delete */}
-    <form action={deleteClass} className="mt-5">
-      <input
-        type="hidden"
-        name="class_id"
-        value={classItem.id}
-      />
-
-      <button
-        type="submit"
-        className="text-sm font-medium text-red-600 hover:text-red-700"
-      >
-        🗑️ Delete Class
-      </button>
-    </form>
+   <div className="mt-5">
+  <DeleteClassButton classId={classItem.id} />
+</div>
   </div>
 </section>
 

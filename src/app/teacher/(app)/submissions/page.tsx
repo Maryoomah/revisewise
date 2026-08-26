@@ -108,13 +108,7 @@ export default async function TeacherSubmissionsPage() {
 
         {/* Header */}
         <section className="mb-10">
-    
-    <Link
-    href="/teacher"
-    className="text-sm font-medium text-blue-700 hover:text-blue-900 "
-  >
-    ← Back to Dashboard
-  </Link>
+  
           <h1 className="mt-4 text-3xl font-bold text-gray-900 md:text-4xl">
             Student Submissions
           </h1>

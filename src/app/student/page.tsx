@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import joinClass from "./action/joinclass";
+import joinClass from "./(app)/action/joinclass";
+import signOut from "../logout/action";
 import { getAssignmentStatus } from "@/lib/assignmentStatus";
 import Link from "next/link";
 
@@ -88,6 +89,24 @@ const submissionsAwaitingFeedback = submissions.filter(
 const awaitingFeedbackCount = submissionsAwaitingFeedback.length;
   return (
   <main className="min-h-screen bg-gray-50 p-6 md:p-8">
+     {/* Header */}
+        <section className=" flex items-center justify-between mb-12">
+          <h1 className="text-3xl md:text-4xl font-extrabold">
+            Write <span className="text-blue-900">Wise</span>
+          </h1>
+
+          <div className="flex gap-4">
+            <form action={signOut}>
+              {" "}
+              <button
+                type="submit"
+                className="inline-block rounded-lg bg-blue-800 px-6 py-3 text-white hover:bg-blue-900 transition"
+              >
+                Log Out
+              </button>
+            </form>{" "}
+          </div>
+        </section>
   <section className="mx-auto w-full max-w-6xl">
         {enrolledClasses.length === 0 ? (
           <>

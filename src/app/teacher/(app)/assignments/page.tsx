@@ -103,12 +103,6 @@ export default async function TeacherAssignmentsPage() {
        
           <div className="mt-1 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-                    <Link
-    href="/teacher"
-    className="text-sm font-medium text-blue-700 hover:text-blue-900 "
-  >
-    ← Back to Dashboard
-  </Link>
               <h1 className="text-3xl mt-4 font-bold text-gray-900 md:text-4xl">
                 Assignments
               </h1>

@@ -2,13 +2,13 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import NavLink from "@/components/navlink";
 import submitAssignment from "./action";
+import getAIGuidance from "./ai-action";
 export default async function AssignmentPage({
   params,
 }: {
   params: Promise<{ id: string, assignmentId : string }>;
 }) {
   const {id, assignmentId} = await params;
-
   const supabase = await createClient ();
 
    const {
@@ -18,11 +18,18 @@ export default async function AssignmentPage({
     if (error || !user) {
       redirect("/login");
     }
-  
- const { data: assignment, error: assignmentError } = await supabase
-    .from("assignments")
-    .select("*")
-.eq("id", assignmentId)    .single();
+
+//  const { data: assignment, error: assignmentError } = await supabase
+//     .from("assignments")
+//     .select("*")
+// .eq("id", assignmentId)    .single();
+
+const { data: assignment, error: assignmentError } = await supabase
+  .from("assignments")
+  .select("*")
+  .eq("id", assignmentId)
+  .single();
+
 if (assignmentError) {
   throw assignmentError;
 }
@@ -37,7 +44,36 @@ const {data: submission , error:submissionError} = await supabase
   if (submissionError) {
     throw submissionError;
   }
+let aiGuidance = null;
 
+if (submission) {
+  const { data: revision, error: revisionError } = await supabase
+    .from("submission_revisions")
+    .select("id")
+    .eq("submission_id", submission.id)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (revisionError) {
+    throw revisionError;
+  }
+
+  if (revision) {
+    const { data, error: aiError } = await supabase
+      .from("ai_guidance")
+      .select("guidance")
+      .eq("revision_id", revision.id)
+      .maybeSingle();
+
+   if (aiError) {
+  console.error("AI GUIDANCE ERROR:", aiError);
+  throw aiError;
+}
+
+    aiGuidance = data?.guidance ?? null;
+  }
+}
   
   return (
   <main className="min-h-screen bg-gray-50 p-6 md:p-8">
@@ -140,7 +176,90 @@ const {data: submission , error:submissionError} = await supabase
           </p>
         </section>
       )}
+{submission?.feedback && (
+  <section className="mt-6 rounded-2xl bg-white p-6 shadow-sm">
+    <h2 className="text-lg font-bold text-gray-900">
+      AI Revision Guidance
+    </h2>
 
+    <p className="mt-1 text-sm text-gray-500">
+      Need help understanding your teacher's feedback?
+    </p>     {!aiGuidance && (
+      <form
+        action={getAIGuidance.bind(
+          null,
+          submission.id,
+          assignmentId,
+          id
+        )}
+        className="mt-4"
+      >
+        <button
+          type="submit"
+          className="rounded-lg bg-blue-900 px-5 py-3 font-semibold text-white hover:bg-blue-800"
+        >
+          Get AI Guidance
+        </button>
+      </form>
+    )}
+    {aiGuidance && (
+      <div className="mt-6 space-y-5">
+        <div>
+          <h3 className="font-semibold text-gray-900">
+            What your teacher means
+          </h3>
+          <p className="mt-2 text-gray-700">
+            {aiGuidance.whatTeacherMeans}
+          </p>
+        </div>
+
+        <div>
+          <h3 className="font-semibold text-gray-900">
+            Where to focus
+          </h3>
+          <p className="mt-2 text-gray-700">
+            {aiGuidance.whereToFocus}
+          </p>
+        </div>
+ <div>
+          <h3 className="font-semibold text-gray-900">
+            How to get started
+          </h3>
+          <p className="mt-2 text-gray-700">
+            {aiGuidance.howToGetStarted}
+          </p>
+        </div>
+
+        <div>
+          <h3 className="font-semibold text-gray-900">
+            Questions to consider
+          </h3>
+
+          <ul className="mt-2 list-disc space-y-2 pl-5 text-gray-700">
+            {aiGuidance.questionsToConsider.map(
+              (question: string) => (
+                <li key={question}>{question}</li>
+              )
+            )}
+          </ul>
+        </div> 
+                <div>
+          <h3 className="font-semibold text-gray-900">
+            Revision checklist
+          </h3>
+
+          <ul className="mt-2 list-disc space-y-2 pl-5 text-gray-700">
+            {aiGuidance.revisionChecklist.map(
+              (item: string) => (
+                <li key={item}>{item}</li>
+              )
+            )}
+          </ul>
+        </div>
+      </div>
+    )}
+  </section>
+)}
     </section>
   </main>
 );

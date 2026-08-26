@@ -23,9 +23,7 @@ export default async function EditClassPage({
   return (
     <main className="min-h-screen bg-blue-100 flex items-center justify-center p-8">
       <section className="w-full max-w-2xl rounded-2xl bg-white p-8 shadow-lg">
-        <h1 className="text-3xl md:text-4xl font-extrabold mb-4">
-          Edit <span className="text-blue-900">Class</span>
-        </h1>
+       
 <NavLink href={`/teacher/classes/${id}`}>
   ← Back to Class
 </NavLink>

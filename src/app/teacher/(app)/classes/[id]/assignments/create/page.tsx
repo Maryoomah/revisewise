@@ -1,6 +1,5 @@
 import createAssignment from "./action";
-import NavLink from "@/components/navlink";
-
+import Link from "next/link";
 export default async function CreateAssignmentPage({
   params,
 }: {
@@ -11,18 +10,17 @@ export default async function CreateAssignmentPage({
   return (
     <main className="min-h-screen bg-gray-50 px-6 py-10">
       <div className="mx-auto max-w-3xl">
-
-        <NavLink
+  <Link
           href={`/teacher/classes/${id}`}
-        >
-          ← Back to class
-        </NavLink>
+    className="text-sm font-medium text-blue-700 hover:text-blue-900"
+  >
+    ← Back to Classes
+  </Link>
+      
 
         <section className="rounded-2xl bg-white p-8 shadow-sm">
           <div className="mb-8">
-            <p className="text-sm font-medium text-blue-700">
-              New Assignment
-            </p>
+     
 
             <h1 className="mt-1 text-3xl font-bold text-gray-900">
               Create Assignment
@@ -93,9 +91,7 @@ export default async function CreateAssignmentPage({
                 className="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-900"
               />
 
-              <p className="mt-2 text-sm text-gray-500">
-                Choose when students should submit this assignment.
-              </p>
+          
             </div>
 
             <div className="flex items-center gap-3 pt-2">
@@ -106,11 +102,7 @@ export default async function CreateAssignmentPage({
                 Create Assignment
               </button>
 
-              <NavLink
-                href={`/teacher/classes/${id}`}
-              >
-                Cancel
-              </NavLink>
+             
             </div>
 
           </form>

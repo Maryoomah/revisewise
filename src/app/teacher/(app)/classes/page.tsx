@@ -29,12 +29,7 @@ export default async function ClassesPage() {
         <section className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
           
- <Link
-    href="/teacher"
-    className="text-sm font-medium text-blue-700 hover:text-blue-900 "
-  >
-    ← Back to Dashboard
-  </Link>
+
             <h1 className="mt-4 text-3xl font-bold text-gray-900 md:text-4xl">
               My Classes
             </h1>
