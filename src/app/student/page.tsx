@@ -5,7 +5,15 @@ import signOut from "../logout/action";
 import { getAssignmentStatus } from "@/lib/assignmentStatus";
 import Link from "next/link";
 
-
+type EnrolledClass = {
+  class_id: string;
+  classes: {
+    id: string;
+    title: string;
+    level: string;
+    description: string;
+  };
+};
 export default async function StudentDashboard() {
   const supabase = await createClient();
 
@@ -27,7 +35,7 @@ export default async function StudentDashboard() {
     throw profileError;
   }
 
-  const { data: enrolledClasses, error } = await supabase
+  const { data: enrolledClassesData, error } = await supabase
     .from("enrolments")
     .select(`
       class_id,
@@ -39,12 +47,11 @@ export default async function StudentDashboard() {
       )
     `)
     .eq("student_id", user.id);
-
   if (error) {
     throw error;
   }
-
-const enrolledClassesIds = enrolledClasses.map(
+const enrolledClasses = (enrolledClassesData ?? []) as unknown as EnrolledClass[];
+  const enrolledClassesIds = enrolledClasses.map(
   (classItem) => classItem.classes.id
 );
   let assignments: any[] = [];
