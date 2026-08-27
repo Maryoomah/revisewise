@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 export default function VerifyEmailPage() {
   return (
     <main className="flex min-h-screen items-center justify-center px-6">
