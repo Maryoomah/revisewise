@@ -28,9 +28,10 @@ export async function signup(formData: FormData) {
     },
   })
 
-  if (error) {
-    throw error
-  }
+if (error) {
+  console.error("SIGNUP ERROR:", error);
+  throw new Error(error.message);
+}
 
   redirect('/verify-email')
 }
