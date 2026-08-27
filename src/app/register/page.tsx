@@ -3,7 +3,7 @@ import { signup } from "./action";
 export default function Register() {
   return (
     <section className="min-h-screen flex items-center justify-center ">
-      <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8">
+      <div className="w-full max-w-md shadow-lg rounded-2xl p-8">
         <h1 className="text-3xl md:text-4xl font-extrabold text-center">
           Write <span className="text-blue-900">Wise</span>
         </h1>
