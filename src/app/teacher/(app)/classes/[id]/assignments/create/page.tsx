@@ -18,7 +18,6 @@ export default async function CreateAssignmentPage({
   </Link>
       
 
-        <section className="rounded-2xl bg-white p-8 shadow-sm">
           <div className="mb-8">
      
 
@@ -106,7 +105,6 @@ export default async function CreateAssignmentPage({
             </div>
 
           </form>
-        </section>
       </div>
     </main>
   );
