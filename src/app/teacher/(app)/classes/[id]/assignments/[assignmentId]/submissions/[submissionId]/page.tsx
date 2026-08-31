@@ -86,7 +86,7 @@ if (revisionError) {
   </div>
 
   <div className="border-t pt-6">
-    <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-500">
+    <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-blue-700">
       Response
     </h3>
 
@@ -106,7 +106,7 @@ if (revisionError) {
 
     <div className="mt-6 space-y-5">
       <div>
-        <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-gray-500">
+        <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-blue-700">
           Previous Response
         </h3>
 
@@ -126,7 +126,7 @@ if (revisionError) {
       </div>
 
       <div>
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500">
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-blue-700">
           Previous Score
         </h3>
 
@@ -154,7 +154,7 @@ if (revisionError) {
 <div>
   <label
     htmlFor="feedback"
-    className="mb-2 block text-sm font-semibold text-gray-700"
+    className="mb-2 block text-sm font-semibold text-blue-700"
   >
     Feedback
   </label>
