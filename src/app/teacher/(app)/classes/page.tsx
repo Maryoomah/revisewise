@@ -80,7 +80,8 @@ export default async function ClassesPage() {
                 className="group flex flex-col rounded-2xl bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
               >
                 <div className="flex-1">
-                  <div className="mb-4 flex items-start justify-between gap-4">
+                    <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+
                     <h2 className="text-xl font-bold text-gray-900">
                       {classItem.title}
                     </h2>
