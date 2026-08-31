@@ -72,7 +72,6 @@ if (revisionError) {
   </p>
 </div>
 <div className="grid gap-6 lg:grid-cols-2">
-    <section className="rounded-2xl bg-white p-6 shadow-sm">
   <div className="mb-6 flex items-center justify-between">
     <div>
       <p className="text-sm text-gray-500">Student</p>
@@ -95,7 +94,6 @@ if (revisionError) {
       {submission.response}
     </div>
   </div>
-</section>
 {previousRevision && (
   <section className="rounded-2xl bg-white p-6 shadow-sm">
     <h2 className="text-xl font-bold text-gray-900">
