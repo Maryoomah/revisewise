@@ -110,7 +110,7 @@ if (revisionError) {
           Previous Response
         </h3>
 
-        <div className="rounded-xl  leading-7 text-gray-700">
+        <div className="rounded-xl whitespace-pre-wrap leading-7 text-gray-700">
           {previousRevision.response}
         </div>
       </div>
@@ -137,7 +137,7 @@ if (revisionError) {
     </div>
   </section>
 )}
-<section className="h-fit rounded-2xl bg-white p-6 shadow-sm">
+<section>
   <h2 className="text-xl font-bold text-gray-900">
     Feedback & Grade
   </h2>
