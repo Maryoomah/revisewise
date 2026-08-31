@@ -28,72 +28,70 @@ export default async function ClassPage({
   if (assignmentsError) {
     throw assignmentsError;
   }
-  return (
-<main className="min-h-screen bg-gray-50 px-6 py-10">
-     <section className="mx-auto max-w-6xl">
-  <Link
-    href="/teacher/classes"
-    className="text-sm font-medium text-blue-700 hover:text-blue-900"
-  >
-    ← Back to Classes
-  </Link>
-
-  <div className="mt-6 rounded-2xl bg-white p-8 shadow-sm">
-    <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
-      <div>
-        
-
-        <h1 className="mt-1 text-4xl font-bold text-gray-900">
-          {classItem.title}
-        </h1>
-
-        <p className="mt-3 max-w-2xl text-gray-600">
-          {classItem.description}
-        </p>
-
-        <p className="mt-4 text-sm font-semibold text-gray-700">
-          Level:
-          <span className="ml-2 text-blue-800">
-            {classItem.level}
-          </span>
-        </p>
-      </div>
-
+return (
+  <main className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 sm:py-10">
+    <section className="mx-auto max-w-6xl">
       <Link
-        href={`/teacher/classes/${id}/edit`}
-        className="inline-flex w-fit items-center rounded-lg border border-gray-300 px-5 py-2.5 font-semibold text-gray-700 hover:bg-gray-50"
+        href="/teacher/classes"
+        className="text-sm font-medium text-blue-700 hover:text-blue-900"
       >
-        ✏️ Edit Class
+        ← Back to Classes
       </Link>
-    </div>
 
-    {/* Join code */}
-    <div className="mt-8 rounded-xl bg-blue-50 p-5">
-      <p className="text-xs font-semibold uppercase tracking-wide text-blue-700">
-        Join Code
-      </p>
+      <div className="mt-6 rounded-2xl bg-white p-5 shadow-sm sm:p-8">
+        <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+          <div className="min-w-0">
+            <h1 className="mt-1 break-words text-3xl font-bold text-gray-900 sm:text-4xl">
+              {classItem.title}
+            </h1>
 
-      <div className="mt-2 flex items-center gap-4">
-        <p className="text-2xl font-bold tracking-widest text-blue-950">
-          {classItem.join_code}
-        </p>
+            <p className="mt-3 max-w-2xl text-gray-600">
+              {classItem.description}
+            </p>
 
-        <CopyButton text={classItem.join_code} />
+            <p className="mt-4 text-sm font-semibold text-gray-700">
+              Level:
+              <span className="ml-2 text-blue-800">
+                {classItem.level}
+              </span>
+            </p>
+          </div>
+
+          <Link
+            href={`/teacher/classes/${id}/edit`}
+            className="inline-flex w-fit shrink-0 items-center rounded-lg border border-gray-300 px-5 py-2.5 font-semibold text-gray-700 hover:bg-gray-50"
+          >
+            ✏️ Edit Class
+          </Link>
+        </div>
+
+        {/* Join code */}
+        <div className="mt-8 rounded-xl bg-blue-50 p-4 sm:p-5">
+          <p className="text-xs font-semibold uppercase tracking-wide text-blue-700">
+            Join Code
+          </p>
+
+          <div className="mt-2 flex flex-wrap items-center gap-3">
+            <p className="text-2xl font-bold tracking-widest text-blue-950">
+              {classItem.join_code}
+            </p>
+
+            <CopyButton text={classItem.join_code} />
+          </div>
+
+          <p className="mt-2 text-sm text-gray-600">
+            Share this code with students so they can join the class.
+          </p>
+        </div>
+
+        {/* Delete */}
+        <div className="mt-5">
+          <DeleteClassButton classId={classItem.id} />
+        </div>
       </div>
+    </section>
 
-      <p className="mt-2 text-sm text-gray-600">
-        Share this code with students so they can join the class.
-      </p>
-    </div>
-
-    {/* Delete */}
-   <div className="mt-5">
-  <DeleteClassButton classId={classItem.id} />
-</div>
-  </div>
-</section>
-
-<section className="mx-auto mt-10 max-w-6xl">
+     <section className="mx-auto mt-8 max-w-6xl sm:mt-10">
   <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
     <div>
       <h2 className="text-2xl font-bold text-gray-900">
@@ -158,6 +156,6 @@ export default async function ClassPage({
     </section>
   )}
 </section>
-    </main>
-  );
+  </main>
+);
 }

@@ -37,7 +37,7 @@ export default async function TeacherLayout({
             Revise<span className="text-blue-900">Wise</span>
           </h1>
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex justify-center items-center gap-3">
             <NavLink href="/teacher">Go to Dashboard</NavLink>
 
             <form action={signOut}>
