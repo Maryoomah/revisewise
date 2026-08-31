@@ -1,5 +1,4 @@
 import { createClient } from "@/lib/supabase/server";
-import NavLink from "@/components/navlink";
 import Link from "next/link";
 import { getAssignmentStatus } from "@/lib/assignmentStatus";
 import { redirect } from "next/navigation";

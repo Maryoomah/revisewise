@@ -97,9 +97,9 @@ const awaitingFeedbackCount = submissionsAwaitingFeedback.length;
   return (
   <main className="min-h-screen bg-gray-50 p-6 md:p-8">
      {/* Header */}
-        <section className=" flex items-center justify-between mb-12">
-          <h1 className="text-3xl md:text-4xl font-extrabold">
-            Write <span className="text-blue-900">Wise</span>
+        <section className=" flex items-center justify-center mb-12">
+             <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800">
+            Revise<span className="text-blue-900">Wise</span>
           </h1>
 
           <div className="flex gap-4">
@@ -241,46 +241,53 @@ const awaitingFeedbackCount = submissionsAwaitingFeedback.length;
       </p>
     </div>
   ) : (
-    <div className="space-y-3">
-     {assignments.map((assignment) => {
-  const status = getAssignmentStatus(
-    assignment.id,
-    submissions
-  );
+   <div className="space-y-3">
+  {assignments.map((assignment) => {
+    const status = getAssignmentStatus(
+      assignment.id,
+      submissions
+    );
 
-  return (
-    <div
-      key={assignment.id}
-      className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
-    >
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h3 className="font-semibold text-gray-900">
-            {assignment.title}
-          </h3>
+    return (
+      <Link
+        key={assignment.id}
+        href={`/student/classes/${assignment.class_id}/assignments/${assignment.id}`}
+        className="block rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+      >
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h3 className="font-semibold text-gray-900">
+              {assignment.title}
+            </h3>
 
-          <p className="mt-1 text-sm text-gray-500">
-            Due{" "}
-            {new Date(assignment.due_date).toLocaleDateString()}
-          </p>
+            <p className="mt-1 text-sm text-gray-500">
+              Due{" "}
+              {new Date(assignment.due_date).toLocaleDateString()}
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <span
+              className={`w-fit rounded-full px-3 py-1 text-sm font-medium ${status.className}`}
+            >
+              {status.label}
+            </span>
+
+            <span className="text-gray-400 transition group-hover:translate-x-1">
+              →
+            </span>
+          </div>
         </div>
-
-        <span
-          className={`w-fit rounded-full px-3 py-1 text-sm font-medium ${status.className}`}
-        >
-          {status.label}
-        </span>
-      </div>
-    </div>
-  );
-})}
-    </div>
+      </Link>
+    );
+  })}
+</div>
   )}
 </section>
 
             <hr className="my-8" />
 
-            <h3 className="mb-4 text-xl font-semibold">
+            <h3 className="mb-4 text-xl font-semibold text-blue-800">
               Join Another Class
             </h3>
           </>

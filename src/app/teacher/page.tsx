@@ -91,9 +91,9 @@ export default async function TeacherDashboard() {
     <main className="min-h-screen bg-gray-50 px-6 py-10">
        {/* Header */}
               <section className="mb-12 flex items-center justify-between">
-                <h1 className="text-3xl md:text-4xl font-extrabold">
-                  Write <span className="text-blue-900">Wise</span>
-                </h1>
+                  <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800">
+            Revise<span className="text-blue-900">Wise</span>
+          </h1>
       
                 <div className="flex gap-4">
                   <form action={signOut}>

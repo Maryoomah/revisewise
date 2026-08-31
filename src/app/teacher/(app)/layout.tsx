@@ -31,8 +31,8 @@ export default async function TeacherLayout({
       <div className="min-h-screen ">
         {/* Header */}
         <section className=" flex items-center justify-between p-8">
-          <h1 className="text-3xl md:text-4xl font-extrabold">
-            Write <span className="text-blue-900">Wise</span>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800">
+            Revise<span className="text-blue-900">Wise</span>
           </h1>
 
           <div className="flex gap-4">
