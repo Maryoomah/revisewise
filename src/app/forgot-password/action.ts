@@ -7,9 +7,12 @@ export async function forgotPassword(formData: FormData) {
   const supabase = await createClient()
 
   const email = formData.get('email') as string
-
+console.log(
+  "RESET REDIRECT:",
+  "https://writewise-vrk9.vercel.app/auth/callback"
+);
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-redirectTo: "/update-password"  })
+redirectTo: "https://writewise-vrk9.vercel.app/auth/callback"  })
 
   if (error) {
     throw error
