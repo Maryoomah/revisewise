@@ -110,7 +110,7 @@ if (revisionError) {
           Previous Response
         </h3>
 
-        <div className="rounded-xl bg-gray-50 p-4 whitespace-pre-wrap leading-7 text-gray-700">
+        <div className="rounded-xl  leading-7 text-gray-700">
           {previousRevision.response}
         </div>
       </div>
