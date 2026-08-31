@@ -95,7 +95,7 @@ if (revisionError) {
     </div>
   </div>
 {previousRevision && (
-  <section className="rounded-2xl bg-white p-6 shadow-sm">
+  <section>
     <h2 className="text-xl font-bold text-gray-900">
       Previous Review
     </h2>
