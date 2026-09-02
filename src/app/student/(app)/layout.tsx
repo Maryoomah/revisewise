@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import signOut from "@/app/logout/action";
+import LogoutButton from "@/app/logout/logoutbutton";
 import NavLink from "@/components/navlink";
 export default async function StudentLayout({
   children,
@@ -28,7 +29,7 @@ export default async function StudentLayout({
 
   {
     return (
-      <div className="min-h-screen rounded-2xl w-full bg-linear-to-br from-blue-200 via-blue-100 to-blue-200 ">
+      <div className="min-h-screen rounded-2xl w-full bg-linear-to-br from-blue-50 via-blue-100 to-blue-50 ">
         {/* Header */}
           <header className="px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
                <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
@@ -40,12 +41,8 @@ export default async function StudentLayout({
                    <NavLink href="/student">Go to Dashboard</NavLink>
        
                    <form action={signOut}>
-                     <button
-                       type="submit"
-                       className="rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-900 sm:px-6 sm:py-3 sm:text-base"
-                     >
-                       Log Out
-                     </button>
+                     
+                     <LogoutButton/>
                    </form>
                  </div>
                </div>

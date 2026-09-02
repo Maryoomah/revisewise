@@ -1,7 +1,12 @@
+"use client";
+
+import { useActionState } from "react";
 import Link from "next/link";
 import { login } from "./action";
-
+import LoginButton from "./loginbutton";
 export default function Login() {
+  const [state, formAction] = useActionState(login, null);
+
   return (
     <main className="min-h-screen bg-linear-to-tl from-blue-200 to-blue-800  px-4 py-8 sm:px-6">
       <section className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
@@ -12,7 +17,7 @@ export default function Login() {
           </h1>
 
           {/* form */}
-          <form action={login} className="mt-8 flex flex-col gap-4">
+          <form action={formAction} className="mt-8 flex flex-col gap-4">
             <label htmlFor="email" className="font-medium text-gray-700">
               Email Address
             </label>
@@ -37,13 +42,12 @@ export default function Login() {
               className="rounded-lg border border-blue-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-900"
             />
 
-            <button
-              className="mt-2 cursor-pointer rounded-lg bg-blue-800 px-3 py-3 font-semibold text-white transition hover:bg-blue-900"
-              type="submit"
-            >
-              Login to dashboard
-            </button>
-
+          <LoginButton />
+          {state?.error && (
+  <p className="text-center text-sm font-medium text-red-600">
+    {state.error}
+  </p>
+)}
             <div className="mt-2 flex flex-col items-center justify-center gap-3 text-sm sm:flex-row sm:gap-4">
               <Link
                 href="/forgot-password"

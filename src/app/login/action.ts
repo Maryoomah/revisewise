@@ -3,7 +3,8 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 
-export async function login(formData: FormData) {
+export async function login(    _prevState: { error?: string } | null,
+  formData: FormData) {
   // Create the server-side Supabase client
   const supabase = await createClient()
 
@@ -17,9 +18,9 @@ export async function login(formData: FormData) {
     password,
   })
 
-  if (error) {
-    throw error
-  }
+ if (error) {
+  return { error: 'Incorrect email or password.' }
+}
 
   // Get the authenticated user
   const {

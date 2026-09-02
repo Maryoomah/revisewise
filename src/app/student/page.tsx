@@ -4,7 +4,8 @@ import joinClass from "./(app)/action/joinclass";
 import signOut from "../logout/action";
 import { getAssignmentStatus } from "@/lib/assignmentStatus";
 import Link from "next/link";
-
+import LogoutButton from "../logout/logoutbutton";
+import LoginButton from "../login/loginbutton";
 type EnrolledClass = {
   class_id: string;
   classes: {
@@ -95,7 +96,7 @@ const enrolledClasses = (enrolledClassesData ?? []) as unknown as EnrolledClass[
 
 // const awaitingFeedbackCount = submissionsAwaitingFeedback.length;
   return (
-  <main className="min-h-screen bg-linear-to-br from-blue-200 via-blue-100 to-blue-300 rounded-2xl p-6 md:p-8">
+  <main className="min-h-screen bg-linear-to-br from-blue-50 via-blue-100 to-blue-50 rounded-2xl p-6 md:p-8">
      {/* Header */}
      
          <section className="mb-12 flex items-center justify-between">
@@ -105,14 +106,9 @@ const enrolledClasses = (enrolledClassesData ?? []) as unknown as EnrolledClass[
               
                         <div className="flex gap-4">
                           <form action={signOut}>
-                            {" "}
-                            <button
-                              type="submit"
-                              className="inline-block rounded-lg bg-blue-800 px-6 py-3 text-white hover:bg-blue-900 transition"
-                            >
-                              Log Out
-                            </button>
-                          </form>{" "}
+                          
+                        <LoginButton/>
+                          </form>
                         </div>
                       </section>
   <section className="mx-auto w-full max-w-6xl">

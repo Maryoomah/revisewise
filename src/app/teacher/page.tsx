@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import signOut from "../logout/action";
 import Link from "next/link";
+import LogoutButton from "../logout/logoutbutton";
 export default async function TeacherDashboard() {
   const supabase = await createClient();
 
@@ -88,7 +89,7 @@ export default async function TeacherDashboard() {
   const upcomingAssignmentCount = upcomingAssignments.length;
 
   return (
-    <main className="min-h-screen bg-gray-50 px-6 py-10">
+    <main className="min-h-screen  bg-linear-to-br  from-blue-50 via-blue-100 to-blue-50  p-6 md:p-8 rounded-2xl">
        {/* Header */}
               <section className="mb-12 flex items-center justify-between">
                   <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800">
@@ -98,12 +99,7 @@ export default async function TeacherDashboard() {
                 <div className="flex gap-4">
                   <form action={signOut}>
                     {" "}
-                    <button
-                      type="submit"
-                      className="inline-block rounded-lg bg-blue-800 px-6 py-3 text-white hover:bg-blue-900 transition"
-                    >
-                      Log Out
-                    </button>
+                   <LogoutButton/>
                   </form>{" "}
                 </div>
               </section>

@@ -22,7 +22,7 @@ export default async function ClassesPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 px-6 py-10">
+    <main className="min-h-screen px-6 py-10">
       <div className="mx-auto max-w-6xl">
 
         {/* Header */}
@@ -49,7 +49,7 @@ export default async function ClassesPage() {
 
         {/* Empty state */}
         {classes.length === 0 ? (
-          <section className="rounded-2xl bg-white px-6 py-16 text-center shadow-sm">
+          <section className="rounded-2xl  px-6 py-16 text-center shadow-sm">
             <div className="mx-auto max-w-md">
               <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-blue-50 text-2xl">
                 📚

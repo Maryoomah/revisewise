@@ -1,7 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import signOut from "../logout/action";
-import NavLink from "@/components/navlink";
 export default async function StudentLayout({
   children,
 }: {
@@ -32,7 +30,7 @@ export default async function StudentLayout({
        
 
         {/* Main Content */}
-        <main className="flex-1 p-8">{children}</main>
+        <main className="flex-1 p-6">{children}</main>
       </div>
     );
   }
