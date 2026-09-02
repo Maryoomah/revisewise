@@ -165,14 +165,14 @@ Each assignment belongs to a specific class.
 
 ## Student Dashboard
 
-The student dashboard provides an overview of:
+<!-- The student dashboard provides an overview of:
 
 * Enrolled classes
 * Total assignments
 * Assignments awaiting feedback
-* Recent assignments
+* Recent assignments -->
 
-Students can also:
+The student dashboards allows students to :
 
 * View their enrolled classes
 * Join another class using a class code
@@ -258,7 +258,7 @@ The teacher dashboard also displays the number of submissions currently awaiting
 
 # Submission Revision History
 
-WriteWise preserves previous reviewed versions of student work using a separate `submission_revisions` table.
+ReviseWise preserves previous reviewed versions of student work using a separate `submission_revisions` table.
 
 The active `submissions` record represents the student's **current version**, while `submission_revisions` preserves previous reviewed versions, including:
 
@@ -295,7 +295,7 @@ Review history preserved
 
 # AI-Assisted Revision Guidance
 
-WriteWise integrates the **Google Gemini API** to provide AI-assisted guidance after teacher feedback has been provided.
+ReviseWise integrates the **Google Gemini API** to provide AI-assisted guidance after teacher feedback has been provided.
 
 The AI is designed as a **revision coach**, not an essay writer.
 
@@ -442,19 +442,9 @@ This project is being developed to strengthen practical skills in:
 * Revision starting points ✅
 * Revision questions ✅
 * Revision checklist ✅
-* Automated formative feedback
-* Grammar suggestions
-* Vocabulary suggestions
-* Coherence feedback
 
-## Phase 8
 
-### Analytics
 
-* Student progress
-* Revision history
-* Assignment statistics
-* Teacher insights
 
 ---
 

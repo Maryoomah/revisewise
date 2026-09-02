@@ -77,7 +77,7 @@ export default async function getAIGuidance(
   const prompt = `
 ROLE
 
-You are a revision coach. Your role is to help students understand and act on teacher feedback so they can revise their own writing confidently and independently.
+You are a revision coach. Your role is to help students understand and act on teacher feedback so they can revise their own writing confidently and independently. Ensure your language is easy to understand.
 
 TASK
 

@@ -1,14 +1,17 @@
+"use client";
 
+import { useActionState } from "react";
 import { forgotPassword } from "./action";
 
 export default function ResetPassword() {
+  const [state, formAction] = useActionState(forgotPassword, null);
+
   return (
     <main className="min-h-screen bg-linear-to-br from-blue-50 via-white to-slate-50 px-4 py-10 sm:px-6 lg:px-8">
       <section className="flex min-h-[calc(100vh-5rem)] items-center justify-center">
         <div className="w-full max-w-md">
-          {/* Card */}
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xl shadow-blue-900/5 sm:p-8 md:p-10">
-            {/* Header */}
+
             <div className="text-center">
               <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100">
                 <svg
@@ -33,8 +36,7 @@ export default function ResetPassword() {
               </div>
 
               <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-                Reset{" "}
-                <span className="text-blue-900">Password</span>
+                Reset <span className="text-blue-900">Password</span>
               </h1>
 
               <p className="mx-auto mt-3 max-w-sm text-sm leading-6 text-slate-500 sm:text-base">
@@ -43,8 +45,7 @@ export default function ResetPassword() {
               </p>
             </div>
 
-            {/* Form */}
-            <form action={forgotPassword} className="mt-8 space-y-5">
+            <form action={formAction} className="mt-8 space-y-5">
               <div>
                 <label
                   htmlFor="email"
@@ -64,6 +65,12 @@ export default function ResetPassword() {
                 />
               </div>
 
+              {state?.error && (
+                <p className="text-center text-sm font-medium text-red-600">
+                  {state.error}
+                </p>
+              )}
+
               <button
                 type="submit"
                 className="w-full rounded-xl bg-blue-900 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-900/20 transition hover:bg-blue-950 hover:shadow-xl hover:shadow-blue-900/25 focus:outline-none focus:ring-4 focus:ring-blue-900/20 active:scale-[0.99]"
@@ -72,7 +79,6 @@ export default function ResetPassword() {
               </button>
             </form>
 
-            {/* Bottom hint */}
             <p className="mt-6 text-center text-xs leading-5 text-slate-400">
               We'll send instructions to the email address associated with
               your account.

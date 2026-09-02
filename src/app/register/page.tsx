@@ -1,7 +1,13 @@
+"use client";
+
+import { useActionState } from "react";
 import Link from "next/link";
 import { signup } from "./action";
+import RegisterButton from "./registerButton";
 
 export default function Register() {
+  const [state, formAction] = useActionState(signup, null);
+
   return (
     <main className="min-h-screen  bg-linear-to-tl from-blue-200 to-blue-800 px-4 py-8 sm:px-6">
       <section className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
@@ -15,7 +21,7 @@ export default function Register() {
           </p>
 
           {/* Form */}
-          <form action={signup} className="mt-8 space-y-5">
+          <form action={formAction} className="mt-8 space-y-5">
             {/* Full Name */}
             <div>
               <label
@@ -31,6 +37,7 @@ export default function Register() {
                 name="full_name"
                 placeholder="Enter your full name"
                 required
+                defaultValue={state?.values?.full_name || ""}
                 className="w-full rounded-lg border border-blue-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-900"
               />
             </div>
@@ -50,6 +57,7 @@ export default function Register() {
                 name="email"
                 placeholder="Enter your email address"
                 required
+                defaultValue={state?.values?.email || ""}
                 className="w-full rounded-lg border border-blue-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-900"
               />
             </div>
@@ -68,6 +76,7 @@ export default function Register() {
                     name="role"
                     value="teacher"
                     required
+                    checked={state?.values?.role === "teacher"}
                     className="accent-blue-900"
                   />
                   Teacher
@@ -79,6 +88,7 @@ export default function Register() {
                     id="student"
                     name="role"
                     value="student"
+                    checked={state?.values?.role === "student"}
                     className="accent-blue-900"
                   />
                   Student
@@ -123,14 +133,13 @@ export default function Register() {
                 className="w-full rounded-lg border border-blue-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-900"
               />
             </div>
-
+            {state?.error && (
+              <p className="text-center text-sm font-medium text-red-600">
+                {state.error}
+              </p>
+            )}
             {/* Submit */}
-            <button
-              type="submit"
-              className="w-full cursor-pointer rounded-lg bg-blue-900 py-3 font-semibold text-white transition hover:bg-blue-800"
-            >
-              Create Account
-            </button>
+            <RegisterButton />
 
             {/* Login Link */}
             <p className="text-center text-sm text-gray-600">

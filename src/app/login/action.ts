@@ -27,10 +27,10 @@ export async function login(    _prevState: { error?: string } | null,
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Safety check
-  if (!user) {
-    throw new Error('User not found')
-  }
+  
+   if (!user) {
+  return { error: 'Unable to retrieve your account. Please try again.' }
+}
 
   // Check whether this user already has a profile
   const { data: profile } = await supabase
@@ -49,9 +49,9 @@ export async function login(    _prevState: { error?: string } | null,
         role: user.user_metadata.role,
       })
 
-    if (insertError) {
-      throw insertError
-    }
+  if (insertError) {
+  return { error: 'Unable to set up your account. Please try again.' }
+}
   }
 
   // Decide where to send the user

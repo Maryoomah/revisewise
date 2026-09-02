@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import Link from "next/link";
 import { login } from "./action";
+import PasswordInput from "./passwordInput";
 import LoginButton from "./loginbutton";
 export default function Login() {
   const [state, formAction] = useActionState(login, null);
@@ -34,13 +35,7 @@ export default function Login() {
               Password
             </label>
 
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Enter your password"
-              className="rounded-lg border border-blue-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-900"
-            />
+            <PasswordInput />
 
           <LoginButton />
           {state?.error && (

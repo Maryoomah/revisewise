@@ -3,7 +3,8 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 
-export async function signup(formData: FormData) {
+export async function signup(  _prevState: { error?: string } | null,
+formData: FormData) {
   const supabase = await createClient()
 
   const email = formData.get('email') as string
@@ -13,9 +14,16 @@ export async function signup(formData: FormData) {
   const role = formData.get('role') as string
 
   // Validate passwords BEFORE talking to Supabase
-  if (password !== confirmPassword) {
-    throw new Error('Passwords do not match')
-  }
+ if (password !== confirmPassword) {
+  return { error: 'Passwords do not match.',
+      values: {
+    full_name,
+    email,
+    role,
+  },
+
+   }
+}
 
   const { error } = await supabase.auth.signUp({
     email,
@@ -30,7 +38,14 @@ export async function signup(formData: FormData) {
 
 if (error) {
   console.error("SIGNUP ERROR:", error);
-  throw new Error(error.message);
+  return { error: error.message,
+      values: {
+    full_name,
+    email,
+    role,
+  },
+
+   };
 }
 
   redirect('/verify-email')

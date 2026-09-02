@@ -1,47 +1,64 @@
+"use client";
+
+import { useActionState } from "react";
 import { updatePassword } from "./action";
-export default function updatePasswordPage() {
+import UpdatePasswordButton from "./updatePwordButton";
+
+export default function UpdatePasswordPage() {
+  const [state, formAction] = useActionState(updatePassword, null);
+
   return (
-    <section className="flex items-center justify-center min-h-screen">
-        <div className="space-y-4">
- <h1 className="uppercase font-extrabold text-3xl md:text-4xl ">
-        Reset <span className="text-blue-900 ">Password</span>
-      </h1>
-      <form action={updatePassword} className="">
-        <div>
-          <label htmlFor="newpasswrd">Enter New Password</label>
-          <input
-            type="password"
-            name="newpassword"
-            id="newpassword"
-            placeholder="new password"
-            minLength={8}
-            required
-            className="w-full my-2 border border-blue-700 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
-          />
-        </div>
-        <div>
-          <label htmlFor="confirmpassword" className="block mb-2 font-medium ">
-            Confirm New Password
-          </label>
-          <input
-            type="password"
-            name="confirmpassword"
-            id="confirmpassword"
-            minLength={8}
-            required
-            placeholder="confirm password"
-            className="w-full my-2 border border-blue-700 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full cursor-pointer bg-blue-900 hover:bg-blue-800 transition text-white py-3 rounded-lg font-semibold"
-        >
-          Reset Password
-        </button>
-      </form>
-        </div>
-     
+    <section className="flex min-h-screen items-center justify-center px-4">
+      <div className="w-full max-w-md space-y-6 rounded-2xl bg-white p-6 shadow-xl sm:p-8">
+        <h1 className="text-center text-3xl font-extrabold uppercase md:text-4xl">
+          Reset <span className="text-blue-900">Password</span>
+        </h1>
+
+        <form action={formAction} className="space-y-5">
+          <div>
+            <label htmlFor="newpassword" className="block mb-2 font-medium">
+              Enter New Password
+            </label>
+
+            <input
+              type="password"
+              name="newpassword"
+              id="newpassword"
+              placeholder="New password"
+              minLength={8}
+              required
+              className="w-full rounded-lg border border-blue-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-900"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="confirmpassword"
+              className="block mb-2 font-medium"
+            >
+              Confirm New Password
+            </label>
+
+            <input
+              type="password"
+              name="confirmpassword"
+              id="confirmpassword"
+              minLength={8}
+              required
+              placeholder="Confirm password"
+              className="w-full rounded-lg border border-blue-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-900"
+            />
+          </div>
+
+          {state?.error && (
+            <p className="text-center text-sm font-medium text-red-600">
+              {state.error}
+            </p>
+          )}
+
+        <UpdatePasswordButton/>
+        </form>
+      </div>
     </section>
   );
 }
