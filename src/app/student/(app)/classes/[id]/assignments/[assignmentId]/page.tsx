@@ -76,7 +76,7 @@ if (submission) {
 }
   
   return (
-  <main className="min-h-screen rounded-2xl bg-linear-to-br from-blue-200 via-blue-100 to-blue-200  p-6 md:p-8">
+  <main className="min-h-screen  p-6 md:p-8">
     <section className="mx-auto w-full max-w-4xl">
 
       <NavLink href={`/student/classes/${id}`}>

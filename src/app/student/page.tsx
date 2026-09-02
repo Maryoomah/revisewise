@@ -5,7 +5,6 @@ import signOut from "../logout/action";
 import { getAssignmentStatus } from "@/lib/assignmentStatus";
 import Link from "next/link";
 import LogoutButton from "../logout/logoutbutton";
-import LoginButton from "../login/loginbutton";
 type EnrolledClass = {
   class_id: string;
   classes: {
@@ -101,13 +100,13 @@ const enrolledClasses = (enrolledClassesData ?? []) as unknown as EnrolledClass[
      
          <section className="mb-12 flex items-center justify-between">
                           <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800">
-                    Revise<span className="text-blue-900">Wise</span>
+                    Revise< span className="text-blue-900">Wise</span>
                   </h1>
               
                         <div className="flex gap-4">
                           <form action={signOut}>
                           
-                        <LoginButton/>
+                        <LogoutButton/>
                           </form>
                         </div>
                       </section>

@@ -2,7 +2,7 @@ import createClass from "./action";
 import Link from "next/link";
 export default function CreateClass() {
   return (
-    <main className="min-h-screen bg-gray-50 px-6 py-10">
+    <main className="min-h-screen px-6 py-10">
       <div className="mx-auto max-w-2xl">
 
         {/* Header */}
