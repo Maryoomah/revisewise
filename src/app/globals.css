@@ -19,10 +19,16 @@
   }
 } */
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: #bfdbfe;
+}
 
 body {
-   margin: 0;
-  background: var(--background);
+   
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }

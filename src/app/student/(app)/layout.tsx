@@ -28,7 +28,7 @@ export default async function StudentLayout({
 
   {
     return (
-      <div className="min-h-screen w-full bg-linear-to-br from-blue-200 via-blue-100 to-blue-200 ">
+      <div className="min-h-screen rounded-2xl w-full bg-linear-to-br from-blue-200 via-blue-100 to-blue-200 ">
         {/* Header */}
           <header className="px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
                <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
