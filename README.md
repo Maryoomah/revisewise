@@ -450,7 +450,7 @@ This project is being developed to strengthen practical skills in:
 
 # Current Status
 
-**Current milestone:** WriteWise has a functional end-to-end teacher feedback and AI-assisted revision guidance workflow.
+**Current milestone:** ReviseWise has a functional end-to-end teacher feedback and AI-assisted revision guidance workflow.
 
 Completed:
 
