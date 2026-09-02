@@ -88,32 +88,33 @@ const enrolledClasses = (enrolledClassesData ?? []) as unknown as EnrolledClass[
 
     submissions = data ?? [];
   }
-const submissionsAwaitingFeedback = submissions.filter(
-  (submission) =>
-    submission.status === "submitted" && !submission.feedback
-);
+// const submissionsAwaitingFeedback = submissions.filter(
+//   (submission) =>
+//     submission.status === "submitted" && !submission.feedback
+// );
 
-const awaitingFeedbackCount = submissionsAwaitingFeedback.length;
+// const awaitingFeedbackCount = submissionsAwaitingFeedback.length;
   return (
-  <main className="min-h-screen bg-gray-50 p-6 md:p-8">
+  <main className="min-h-screen bg-linear-to-br from-blue-200 via-blue-100 to-blue-300 rounded-2xl p-6 md:p-8">
      {/* Header */}
-        <section className=" flex items-center justify-center mb-12">
-             <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800">
-            Revise<span className="text-blue-900">Wise</span>
-          </h1>
-
-          <div className="flex gap-4">
-            <form action={signOut}>
-              {" "}
-              <button
-                type="submit"
-                className="inline-block rounded-lg bg-blue-800 px-6 py-3 text-white hover:bg-blue-900 transition"
-              >
-                Log Out
-              </button>
-            </form>{" "}
-          </div>
-        </section>
+     
+         <section className="mb-12 flex items-center justify-between">
+                          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800">
+                    Revise<span className="text-blue-900">Wise</span>
+                  </h1>
+              
+                        <div className="flex gap-4">
+                          <form action={signOut}>
+                            {" "}
+                            <button
+                              type="submit"
+                              className="inline-block rounded-lg bg-blue-800 px-6 py-3 text-white hover:bg-blue-900 transition"
+                            >
+                              Log Out
+                            </button>
+                          </form>{" "}
+                        </div>
+                      </section>
   <section className="mx-auto w-full max-w-6xl">
         {enrolledClasses.length === 0 ? (
           <>
@@ -139,44 +140,49 @@ const awaitingFeedbackCount = submissionsAwaitingFeedback.length;
   </h1>
 
 </section>
+    {/* <h2 className="text-2xl font-bold text-gray-900 mb-4">
+Profile Summary    </h2>
        <div className="mb-10 grid gap-4 sm:grid-cols-3">
   <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-    <p className="text-sm font-medium text-gray-500">
-      My Classes
-    </p>
-
-    <p className="mt-2 text-3xl font-bold text-gray-900">
+     <p className="mt-2 text-3xl font-bold text-gray-900">
       {enrolledClasses.length}
     </p>
+    <p className="text-sm font-medium text-gray-500">
+      Classes
+    </p>
+
+   
   </div>
 
   <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
+     <p className="mt-2 text-3xl font-bold text-gray-900">
+      {assignmentCount}
+    </p>
     <p className="text-sm font-medium text-gray-500">
       Assignments
     </p>
 
-    <p className="mt-2 text-3xl font-bold text-gray-900">
-      {assignmentCount}
-    </p>
+   
   </div>
 
   <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-    <p className="text-sm font-medium text-gray-500">
-      Awaiting Feedback
-    </p>
-
     <p className="mt-2 text-3xl font-bold text-gray-900">
       {awaitingFeedbackCount}
     </p>
+    <p className="text-sm font-medium text-gray-500">
+     Awaiting Feedback
+    </p>
+
+    
   </div>
-</div>     
+</div>      */}
 <section className="mb-10">
   <div className="mb-4 flex items-center justify-between">
     <h2 className="text-2xl font-bold text-gray-900">
       My Classes
     </h2>
 
-    <span className="text-sm text-gray-500">
+    <span className="text-sm font-bold text-blue-800">
       {enrolledClasses.length}{" "}
       {enrolledClasses.length === 1 ? "class" : "classes"}
     </span>
@@ -201,9 +207,7 @@ const awaitingFeedbackCount = submissionsAwaitingFeedback.length;
               </h3>
             </div>
 
-            <span className="text-xl text-gray-400 transition group-hover:translate-x-1 group-hover:text-blue-900">
-              →
-            </span>
+          
           </div>
 
           <p className="mt-3 line-clamp-2 text-sm leading-6 text-gray-600">

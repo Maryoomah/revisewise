@@ -76,7 +76,7 @@ if (submission) {
 }
   
   return (
-  <main className="min-h-screen bg-gray-50 p-6 md:p-8">
+  <main className="min-h-screen rounded-2xl bg-linear-to-br from-blue-200 via-blue-100 to-blue-200  p-6 md:p-8">
     <section className="mx-auto w-full max-w-4xl">
 
       <NavLink href={`/student/classes/${id}`}>
@@ -89,7 +89,7 @@ if (submission) {
           Assignment
         </p>
 
-        <h1 className="mt-1 text-3xl font-bold text-gray-900 md:text-4xl">
+        <h1 className="mt-1 min-w-0 wrap-break-word text-3xl font-bold text-gray-900 md:text-4xl">
           {assignment.title}
         </h1>
 
@@ -119,7 +119,6 @@ if (submission) {
           <h2 className="text-lg font-bold text-gray-900">
             Your Submission
           </h2>
-
         </div>
 
         <form action={submitAssignment} className="space-y-5">
@@ -145,7 +144,7 @@ if (submission) {
               required
               defaultValue={submission?.response ?? ""}
               placeholder="Write your response here..."
-              className="mt-2 min-h-100 w-full rounded-xl border border-gray-300 p-4 leading-7 focus:border-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-900"
+              className="mt-2 min-h-100 w-full resize-y rounded-xl border border-gray-300 bg-white p-4 leading-7 focus:border-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-900"
             />
           </div>
 
@@ -171,95 +170,109 @@ if (submission) {
           <p className="mt-3 leading-7 text-gray-700">
             {submission.feedback}
           </p>
-             <p className="mt-3 leading-7 text-gray-700">
-          Score:  {submission.score}
+
+          <p className="mt-3 leading-7 text-gray-700">
+            Score: {submission.score}
           </p>
         </section>
       )}
-{submission?.feedback && (
-  <section className="mt-6 rounded-2xl bg-white p-6 shadow-sm">
-    <h2 className="text-lg font-bold text-gray-900">
-      AI Revision Guidance
-    </h2>
 
-    <p className="mt-1 text-sm text-gray-500">
-      Need help understanding your teacher's feedback?
-    </p>     {!aiGuidance && (
-      <form
-        action={getAIGuidance.bind(
-          null,
-          submission.id,
-          assignmentId,
-          id
-        )}
-        className="mt-4"
-      >
-        <button
-          type="submit"
-          className="rounded-lg bg-blue-900 px-5 py-3 font-semibold text-white hover:bg-blue-800"
-        >
-          Get AI Guidance
-        </button>
-      </form>
-    )}
-    {aiGuidance && (
-      <div className="mt-6 space-y-5">
-        <div>
-          <h3 className="font-semibold text-gray-900">
-            What your teacher means
-          </h3>
-          <p className="mt-2 text-gray-700">
-            {aiGuidance.whatTeacherMeans}
+      {/* AI Guidance */}
+      {submission?.feedback && (
+        <section className="mt-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+          <h2 className="text-lg font-bold text-gray-900">
+            AI Revision Guidance
+          </h2>
+
+          <p className="mt-1 text-sm text-gray-500">
+            Need help understanding your teacher's feedback?
           </p>
-        </div>
 
-        <div>
-          <h3 className="font-semibold text-gray-900">
-            Where to focus
-          </h3>
-          <p className="mt-2 text-gray-700">
-            {aiGuidance.whereToFocus}
-          </p>
-        </div>
- <div>
-          <h3 className="font-semibold text-gray-900">
-            How to get started
-          </h3>
-          <p className="mt-2 text-gray-700">
-            {aiGuidance.howToGetStarted}
-          </p>
-        </div>
+          {!aiGuidance && (
+            <form
+              action={getAIGuidance.bind(
+                null,
+                submission.id,
+                assignmentId,
+                id
+              )}
+              className="mt-4"
+            >
+              <button
+                type="submit"
+                className="rounded-lg bg-blue-900 px-5 py-3 font-semibold text-white transition hover:bg-blue-800"
+              >
+                Get AI Guidance
+              </button>
+            </form>
+          )}
 
-        <div>
-          <h3 className="font-semibold text-gray-900">
-            Questions to consider
-          </h3>
+          {aiGuidance && (
+            <div className="mt-6 space-y-5">
 
-          <ul className="mt-2 list-disc space-y-2 pl-5 text-gray-700">
-            {aiGuidance.questionsToConsider.map(
-              (question: string) => (
-                <li key={question}>{question}</li>
-              )
-            )}
-          </ul>
-        </div> 
-                <div>
-          <h3 className="font-semibold text-gray-900">
-            Revision checklist
-          </h3>
+              <div>
+                <h3 className="font-semibold text-gray-900">
+                  What your teacher means
+                </h3>
 
-          <ul className="mt-2 list-disc space-y-2 pl-5 text-gray-700">
-            {aiGuidance.revisionChecklist.map(
-              (item: string) => (
-                <li key={item}>{item}</li>
-              )
-            )}
-          </ul>
-        </div>
-      </div>
-    )}
-  </section>
-)}
+                <p className="mt-2 text-gray-700">
+                  {aiGuidance.whatTeacherMeans}
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900">
+                  Where to focus
+                </h3>
+
+                <p className="mt-2 text-gray-700">
+                  {aiGuidance.whereToFocus}
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900">
+                  How to get started
+                </h3>
+
+                <p className="mt-2 text-gray-700">
+                  {aiGuidance.howToGetStarted}
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900">
+                  Questions to consider
+                </h3>
+
+                <ul className="mt-2 list-disc space-y-2 pl-5 text-gray-700">
+                  {aiGuidance.questionsToConsider.map(
+                    (question: string) => (
+                      <li key={question}>{question}</li>
+                    )
+                  )}
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900">
+                  Revision checklist
+                </h3>
+
+                <ul className="mt-2 list-disc space-y-2 pl-5 text-gray-700">
+                  {aiGuidance.revisionChecklist.map(
+                    (item: string) => (
+                      <li key={item}>{item}</li>
+                    )
+                  )}
+                </ul>
+              </div>
+
+            </div>
+          )}
+        </section>
+      )}
+
     </section>
   </main>
 );

@@ -54,10 +54,8 @@ if (assignmentIds.length > 0) {
   submissions = data ?? [];
 }
  return (
-  <main className="min-h-screen bg-gray-50 p-6 md:p-8">
+  <main className="min-h-screen rounded-2xl bg-linear-to-br from-blue-200 via-blue-100 to-blue-200 p-6 md:p-8">
     <section className="mx-auto w-full max-w-6xl">
-
-  
 
       {/* Class Header */}
       <section className="mt-6 mb-10">
@@ -69,7 +67,7 @@ if (assignmentIds.length > 0) {
           {classItem.title}
         </h1>
 
-        <p className="mt-3 max-w-3xl text-gray-600 leading-7">
+        <p className="mt-3 max-w-3xl leading-7 text-gray-600">
           {classItem.description}
         </p>
       </section>
@@ -103,64 +101,65 @@ if (assignmentIds.length > 0) {
           </div>
         ) : (
           <div className="grid gap-5 md:grid-cols-2">
-           {assignments.map((assignment) => {
-  const status = getAssignmentStatus(
-    assignment.id,
-    submissions
-  );
+            {assignments.map((assignment) => {
+              const status = getAssignmentStatus(
+                assignment.id,
+                submissions
+              );
 
-  return (
-    <Link
-      key={assignment.id}
-      href={`/student/classes/${id}/assignments/${assignment.id}`}
-      className="group"
-    >
-      <article className="h-full rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+              return (
+                <Link
+                  key={assignment.id}
+                  href={`/student/classes/${id}/assignments/${assignment.id}`}
+                  className="group"
+                >
+                  <article className="h-full rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
 
-        <div className="flex items-start justify-between gap-4">
-          <h3 className="text-xl font-bold text-gray-900">
-            {assignment.title}
-          </h3>
+                    <div className="flex items-start justify-between gap-4">
+                      <h3 className="min-w-0 break-words text-xl font-bold text-gray-900">
+                        {assignment.title}
+                      </h3>
 
-          <span className="text-xl text-gray-400 transition group-hover:translate-x-1 group-hover:text-blue-900">
-            →
-          </span>
-        </div>
+                      <span className="shrink-0 text-xl text-gray-400 transition group-hover:translate-x-1 group-hover:text-blue-900">
+                        →
+                      </span>
+                    </div>
 
-        <p className="mt-3 line-clamp-3 text-sm leading-6 text-gray-600">
-          {assignment.instructions}
-        </p>
+                    <p className="mt-3 line-clamp-3 text-sm leading-6 text-gray-600">
+                      {assignment.instructions}
+                    </p>
 
-        {/* Submission Status */}
-        <div className="mt-5">
-          <span
-            className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${status.className}`}
-          >
-            {status.label}
-          </span>
-        </div>
+                    {/* Submission Status */}
+                    <div className="mt-5">
+                      <span
+                        className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${status.className}`}
+                      >
+                        {status.label}
+                      </span>
+                    </div>
 
-        <div className="mt-6 border-t border-gray-100 pt-4">
-          <p className="text-sm">
-            <span className="font-medium text-gray-500">
-              Due
-            </span>
+                    <div className="mt-6 border-t border-gray-100 pt-4">
+                      <p className="text-sm">
+                        <span className="font-medium text-gray-500">
+                          Due
+                        </span>
 
-            <span className="ml-2 font-semibold text-gray-900">
-              {new Date(
-                assignment.due_date
-              ).toLocaleDateString()}
-            </span>
-          </p>
-        </div>
+                        <span className="ml-2 font-semibold text-gray-900">
+                          {new Date(
+                            assignment.due_date
+                          ).toLocaleDateString()}
+                        </span>
+                      </p>
+                    </div>
 
-      </article>
-    </Link>
-  );
-})}
+                  </article>
+                </Link>
+              );
+            })}
           </div>
         )}
       </section>
+
     </section>
   </main>
 );

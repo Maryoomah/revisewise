@@ -30,23 +30,26 @@ export default async function StudentLayout({
     return (
       <div className="min-h-screen ">
         {/* Header */}
-        <section className=" flex items-center justify-between p-8">
-              <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800">
-            Revise<span className="text-blue-900">Wise</span>
-          </h1>
-          <div className="flex gap-4">
-            <NavLink href="/student">Go to Dashboard</NavLink>
-            <form action={signOut}>
-              {" "}
-              <button
-                type="submit"
-                className="inline-block rounded-lg bg-blue-800 px-6 py-3 text-white hover:bg-blue-900 transition"
-              >
-                Log Out
-              </button>
-            </form>{" "}
-          </div>
-        </section>
+          <header className="px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+               <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                 <h1 className="text-2xl font-extrabold text-gray-800 sm:text-3xl md:text-4xl">
+                   Revise<span className="text-blue-900">Wise</span>
+                 </h1>
+       
+                 <div className="flex justify-center items-center gap-3">
+                   <NavLink href="/student">Go to Dashboard</NavLink>
+       
+                   <form action={signOut}>
+                     <button
+                       type="submit"
+                       className="rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-900 sm:px-6 sm:py-3 sm:text-base"
+                     >
+                       Log Out
+                     </button>
+                   </form>
+                 </div>
+               </div>
+             </header>
 
         {/* Main Content */}
         <main className="flex-1 p-8">{children}</main>
