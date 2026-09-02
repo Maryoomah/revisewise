@@ -95,7 +95,7 @@ const enrolledClasses = (enrolledClassesData ?? []) as unknown as EnrolledClass[
 
 // const awaitingFeedbackCount = submissionsAwaitingFeedback.length;
   return (
-  <main className="min-h-screen bg-linear-to-br from-blue-200 via-blue-100 to-blue-300 rounded-2xl p-6 md:p-8">
+  <main className="min-h-screen bg-linear-to-br from-blue-200 via-blue-100 to-blue-300 rounded-2xl p-10 md:p-8">
      {/* Header */}
      
          <section className="mb-12 flex items-center justify-between">
